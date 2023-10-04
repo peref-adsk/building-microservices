@@ -1,18 +1,13 @@
 # Latest golang image on apline linux
-FROM golang:1.21.1-alpine
+FROM golang:latest
 
-# Work directory
+ENV PROJECT_DIR=/app \
+    GO111MODULE=on \
+    CGO_ENABLED=0
+
 WORKDIR /app
-
-# Installing dependencies
-COPY go.mod go.sum ./
-RUN go mod download
-
-# Copying all the files
+RUN mkdir "/build"
 COPY . .
-
-# Starting our application
-CMD ["go", "run", "src/app/main.go"]
-
-# Exposing server port
-EXPOSE 4100
+RUN go get github.com/githubnemo/CompileDaemon
+RUN go install github.com/githubnemo/CompileDaemon
+ENTRYPOINT CompileDaemon -build="go build -o /build/app ./src/app" -command="/build/app"
