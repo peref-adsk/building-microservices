@@ -1,7 +1,11 @@
 # Emails Microservice
 
 ## Instalation 
+npm install
 
-### Node 
+## Execution
+npm run dev
+
+## Node 
 v18.18.0 (lts)
 
