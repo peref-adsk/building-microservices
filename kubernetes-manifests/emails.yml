@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emails
+  labels:
+    app: emails
+spec:
+  selector:
+    matchLabels:
+      app: emails
+  template:
+    metadata:
+      labels:
+        app: emails
+    spec:
+      containers:
+        - name: emails
+          image: antonymacieldx/emails
+          ports:
+            - containerPort: 6000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emails-service
+spec:
+  selector:
+    app: emails
+  ports:
+    - port: 6000
+      targetPort: 6000
+      protocol: TCP
+      name: http
