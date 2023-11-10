@@ -23,22 +23,10 @@ spec:
           image: paulbouwer/hello-kubernets
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 3002
           env:
-            - name: DB_HOST
-              value: "db"
-            - name: DB_USER
-              value: "root"
-            - name: DB_PASSWORD
-              value: "password"
-            - name: DB_NAME
-              value: "paymentservice"
-            - name: DB_PORT
-              value: "3306"
-            - name: DB_MAX_CONN
-              value: "100"
-            - name: DB_MAX_IDLE_CONN
-              value: "10"
+            - name: PORT
+              value: "3002"
           resources:
             requests:
               memory: "64Mi"
@@ -56,8 +44,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    port: 8080
-    targetPort: 8080
+    port: 3002
+    targetPort: 3002
     protocol: TCP
     name: http
   selectors:
