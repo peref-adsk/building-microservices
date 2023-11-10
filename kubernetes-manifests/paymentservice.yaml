@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: paymentservice
-          image: paulbouwer/hello-kubernets
+          image: lahirisan80/mock_payment_service
           imagePullPolicy: Always
           ports:
             - containerPort: 3002
