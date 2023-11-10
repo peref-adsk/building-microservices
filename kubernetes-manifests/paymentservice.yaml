@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: paymentservice
+    spec:
+      containers:
+        - name: paymentservice
+          image: paulbouwer/hello-kubernets
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "db"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_NAME
+              value: "paymentservice"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_MAX_CONN
+              value: "100"
+            - name: DB_MAX_IDLE_CONN
+              value: "10"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+...
+apiVersion: v1
+kind: service
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+spec:
+  type: NodePort
+  ports:
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selectors:
+    app: paymentservice
