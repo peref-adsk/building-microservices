@@ -5,9 +5,14 @@ metadata:
   labels:
     app: emails
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: emails
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -22,12 +27,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: emails-service
+  name: emails
 spec:
-  selector:
-    app: emails
+  type: ClusterIP
   ports:
     - port: 6000
       targetPort: 6000
       protocol: TCP
       name: http
+  selector:
+    app: emails
