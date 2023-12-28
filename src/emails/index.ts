@@ -13,12 +13,22 @@ app.get('/', async (req: Request, res: Response) => {
 
 app.get('/carts', async (req: Request, res: Response) => {
    try {
-        const response = await axios.get('http://localhost/carts');
+        const response = await axios.get('http://carts:9100/');
         res.send(`This is the carts service response: ${response.data}`);
     } catch (error: any) {
-        res.send(`Internal error: ${error.message}`);
+        res.send(`Carts returns an error: ${JSON.stringify(error)}`);
     }
 })
+
+app.get('/users', async (req: Request, res: Response) => {
+    try {
+         const response = await axios.get('http://users:3000/');
+         res.send(`This is the users service response: ${response.data}`);
+     } catch (error: any) {
+         res.send(`Users returns an error: ${JSON.stringify(error)}`);
+     }
+ })
+ 
 
 app.listen(port, () => {
     console.log(`Server is Fire at port: ${port}`);
