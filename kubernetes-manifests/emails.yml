@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: emails
-          image: antonymacieldx/emails
+          image: antonymacieldx/emails:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 6000
 ---
