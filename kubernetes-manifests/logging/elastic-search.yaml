@@ -1,17 +1,6 @@
 replicas: 1
 minimumMasterNodes: 1
 
-networkPolicy:
-  http:
-    enabled: true
-
-esConfig:
-  elasticsearch.yml: |
-    xpack.security.enabled: false
-    xpack.security.transport.ssl.enabled: false
-    xpack.security.http.ssl.enabled: false
-    xpack.security.enrollment.enabled: false
-
 resources:
   requests:
     cpu: "2000m"
@@ -19,11 +8,6 @@ resources:
   limits:
     cpu: "2000m"
     memory: "3Gi"
-
-http:
-  tls:
-    selfSignedCertificate:
-      disabled: true
 
 volumeClaimTemplate:
   accessModes: ["ReadWriteOnce"]
